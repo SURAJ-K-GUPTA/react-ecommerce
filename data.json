@@ -2424,7 +2424,7 @@
         "pinCode": "560034"
       },
       "id": 1,
-      "status":"pending"
+      "status": "pending"
     },
     {
       "items": [
@@ -2877,6 +2877,87 @@
       },
       "status": "pending",
       "id": 7
+    },
+    {
+      "items": [
+        {
+          "title": "Samsung Galaxy Book",
+          "description": "Samsung Galaxy Book S (2020) Laptop With Intel Lakefield Chip, 8GB of RAM Launched",
+          "price": 1499,
+          "discountPercentage": 4.15,
+          "rating": 4.25,
+          "stock": 50,
+          "brand": "Samsung",
+          "category": "laptops",
+          "thumbnail": "https://i.dummyjson.com/data/products/7/thumbnail.jpg",
+          "images": [
+            "https://i.dummyjson.com/data/products/7/1.jpg",
+            "https://i.dummyjson.com/data/products/7/2.jpg",
+            "https://i.dummyjson.com/data/products/7/3.jpg",
+            "https://i.dummyjson.com/data/products/7/thumbnail.jpg"
+          ],
+          "quantity": 1,
+          "user": 2,
+          "id": 1
+        }
+      ],
+      "totalAmount": 1499,
+      "totalItems": 1,
+      "user": {
+        "email": "suraj@gmail.com",
+        "password": "1a2s3dS!",
+        "addresses": [
+          {
+            "name": "Abhishek R",
+            "email": "test@gmail.com",
+            "phone": "1234567788",
+            "street": "11th Main",
+            "city": "Banaglore",
+            "state": "Karnataka",
+            "pinCode": "560034"
+          },
+          {
+            "name": "Abhishek R",
+            "email": "test@gmail.com",
+            "phone": "1234567788",
+            "street": "11th Main",
+            "city": "Banaglore",
+            "state": "Karnataka",
+            "pinCode": "560034"
+          },
+          {
+            "name": "Suraj Kumar Gupta",
+            "email": "surajkumarguptamainpuri@gmail.com",
+            "phone": "08218024374",
+            "street": "122",
+            "city": "MAINPURI",
+            "state": "UTTAR PRADESH",
+            "pinCode": "205001"
+          },
+          {
+            "name": "Suraj Kumar Gupta",
+            "email": "surajkumarguptamainpuri@gmail.com",
+            "phone": "08218024374",
+            "street": "122",
+            "city": "MAINPURI",
+            "state": "UTTAR PRADESH",
+            "pinCode": "205001"
+          }
+        ],
+        "id": 2
+      },
+      "paymentMethod": "cash",
+      "selectedAddress": {
+        "name": "Abhishek R",
+        "email": "test@gmail.com",
+        "phone": "1234567788",
+        "street": "11th Main",
+        "city": "Banaglore",
+        "state": "Karnataka",
+        "pinCode": "560034"
+      },
+      "status": "pending",
+      "id": 8
     }
   ]
 }
