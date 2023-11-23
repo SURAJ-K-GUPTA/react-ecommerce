@@ -13,57 +13,12 @@ import { XMarkIcon } from "@heroicons/react/24/outline";
 import { Link, Navigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import {
-  selectLoggedInUser,
   updateUserAsync,
 } from "../features/auth/authSlice";
 import { createOrderAsync, selectCurrentOrder, selectCurrentOrderStatus } from "../features/order/orderSlice";
+import { selectUserInfo } from "../features/user/userSlice";
 
-const products = [
-  {
-    id: 1,
-    name: "Throwback Hip Bag",
-    href: "#",
-    color: "Salmon",
-    price: "$90.00",
-    quantity: 1,
-    imageSrc:
-      "https://tailwindui.com/img/ecommerce-images/shopping-cart-page-04-product-01.jpg",
-    imageAlt:
-      "Salmon orange fabric pouch with match zipper, gray zipper pull, and adjustable hip belt.",
-  },
-  {
-    id: 2,
-    name: "Medium Stuff Satchel",
-    href: "#",
-    color: "Blue",
-    price: "$32.00",
-    quantity: 1,
-    imageSrc:
-      "https://tailwindui.com/img/ecommerce-images/shopping-cart-page-04-product-02.jpg",
-    imageAlt:
-      "Front of satchel with blue canvas body, black straps and handle, drawstring top, and front zipper pouch.",
-  },
-  // More products...
-];
 
-const addresses = [
-  {
-    name: "John Wick",
-    street: "11th Main",
-    city: "Delhi",
-    pinCode: 110001,
-    state: "Dehi",
-    phone: 1231231231,
-  },
-  {
-    name: "John Doe",
-    street: "15th Main",
-    city: "Bangalore",
-    pinCode: 560034,
-    state: "Karnataka",
-    phone: 1231231232,
-  },
-];
 const Checkout = () => {
   const [open, setOpen] = useState(true);
   const count = useSelector(selectItems);
@@ -74,7 +29,7 @@ const Checkout = () => {
     reset,
     formState: { errors },
   } = useForm();
-  const user = useSelector(selectLoggedInUser);
+  const user = useSelector(selectUserInfo);
   console.log("user", user);
   const items = useSelector(selectItems);
   const currentOrder = useSelector(selectCurrentOrder)

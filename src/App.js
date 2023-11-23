@@ -24,6 +24,7 @@ import OrderSuccessPage from "./pages/OrderSuccessPage";
 import UserOrdersPage from "./pages/UserOrdersPage";
 import UserProfie from "./features/user/components/UserProfile";
 import UserProfilePage from "./pages/UserProfilePage";
+import { fetchLoggedInUserAsync, fetchLoggedInUserOrderAsync } from "./features/user/userSlice";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -81,14 +82,15 @@ const router = createBrowserRouter([
 ]);
 function App() {
   const dispatch = useDispatch();
-  const users = useSelector(selectLoggedInUser)
-  console.log("users in app",users)
+  const user = useSelector(selectLoggedInUser)
+  console.log("users in app",user)
   useEffect(()=>{
-    if(users){
-    dispatch(fetchItemsByUserIdAsync(users.id))
-    console.log(users.id)
+    if(user){
+    dispatch(fetchItemsByUserIdAsync(user.id))
+    dispatch(fetchLoggedInUserAsync(user.id))
+    console.log(user.id)
   }
-  },[dispatch, users])
+  },[dispatch, user])
   
   return (
     <div className="App h-full">
