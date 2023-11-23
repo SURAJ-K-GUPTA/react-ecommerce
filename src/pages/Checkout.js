@@ -12,13 +12,13 @@ import { Dialog, Transition } from "@headlessui/react";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import { Link, Navigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
+import { updateUserAsync } from "../features/auth/authSlice";
 import {
-  updateUserAsync,
-} from "../features/auth/authSlice";
-import { createOrderAsync, selectCurrentOrder, selectCurrentOrderStatus } from "../features/order/orderSlice";
+  createOrderAsync,
+  selectCurrentOrder,
+  selectCurrentOrderStatus,
+} from "../features/order/orderSlice";
 import { selectUserInfo } from "../features/user/userSlice";
-
-
 const Checkout = () => {
   const [open, setOpen] = useState(true);
   const count = useSelector(selectItems);
@@ -32,9 +32,9 @@ const Checkout = () => {
   const user = useSelector(selectUserInfo);
   console.log("user", user);
   const items = useSelector(selectItems);
-  const currentOrder = useSelector(selectCurrentOrder)
+  const currentOrder = useSelector(selectCurrentOrder);
 
-  console.log(currentOrder)
+  console.log(currentOrder);
   const totalAmount = items.reduce(
     (amount, item) => item.price * item.quantity + amount,
     0
@@ -63,23 +63,22 @@ const Checkout = () => {
   };
 
   const handleOrder = (e) => {
-    if(selectedAddress && paymentMethod){
-    const order = {
-      items,
-      totalAmount,
-      totalItems,
-      user,
-      paymentMethod,
-      selectedAddress,
-      status:'pending' //other status can be delivered, received.
-    };
-    dispatch(createOrderAsync(order));
-    // need to redirect from here to a new page of order success.
-  }
-  else{
-    //TODO : we can use proper messaging popup here
-    alert('Enter Address and Payment method')
-  }
+    if (selectedAddress && paymentMethod) {
+      const order = {
+        items,
+        totalAmount,
+        totalItems,
+        user,
+        paymentMethod,
+        selectedAddress,
+        status: "pending", //other status can be delivered, received.
+      };
+      dispatch(createOrderAsync(order));
+      // need to redirect from here to a new page of order success.
+    } else {
+      //TODO : we can use proper messaging popup here
+      alert("Enter Address and Payment method");
+    }
     //TODO : Redirect to order-success page
     //TODO : clear cart after order
     //TODO : on server change the stock number of items
@@ -87,8 +86,13 @@ const Checkout = () => {
   return (
     <>
       {!items.length && <Navigate to={"/"} replace={true}></Navigate>}
-      {currentOrder && <Navigate to={`/order-success/${currentOrder.id}`} replace={true}></Navigate>}
-      
+      {currentOrder && (
+        <Navigate
+          to={`/order-success/${currentOrder.id}`}
+          replace={true}
+        ></Navigate>
+      )}
+
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className=" relative grid grid-cols-1 gap-x-8 gap-y-10 lg:grid-cols-5">
           <div className="lg:col-span-3">
