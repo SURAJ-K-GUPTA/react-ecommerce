@@ -89,6 +89,7 @@ export default function Signup() {
                 >
                   Password
                 </label>
+                
               </div>
               <div className="mt-2">
                 <input
