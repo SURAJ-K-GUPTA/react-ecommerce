@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { StarIcon } from "@heroicons/react/20/solid";
 import { RadioGroup } from "@headlessui/react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchProductByIdAsync, selectProductById } from "../productSlice";
+import { fetchProductByIdAsync, selectProductById } from "../../productList/productSlice";
 import { useParams } from "react-router-dom";
 import { addToCartAsync } from "../../cart/CartSlice";
 import { selectLoggedInUser } from "../../auth/authSlice";
@@ -35,7 +35,7 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
-export default function ProductDetail() {
+export default function AdminProductDetail() {
   const [selectedColor, setSelectedColor] = useState(colors[0]);
   const [selectedSize, setSelectedSize] = useState(sizes[2]);
   const user = useSelector(selectLoggedInUser);
@@ -148,7 +148,7 @@ export default function ProductDetail() {
               <p className="text-xl line-through tracking-tight text-gray-900">
                 ${product.price}
               </p>
-              <p className="text-3xl tracking-tight text-gray-900">
+              <p className="text-3xl line-through tracking-tight text-gray-900">
                 ${discountedPrice(product)}
               </p>
 

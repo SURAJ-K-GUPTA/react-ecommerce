@@ -57,8 +57,11 @@ export default function UserProfie() {
             <h1 className="text-4xl font-bold tracking-tight text-gray-900">
               Name : {user.name ? user.name : "New User"}
             </h1>
-            <h3 className="text-xl font-bold tracking-tight text-red-900">
+            {user.role === 'admin' && <h3 className="text-xl font-bold tracking-tight text-red-900">
               email address : {user.email}
+            </h3>}
+            <h3 className="text-xl font-bold tracking-tight text-red-900">
+              role : {user.role}
             </h3>
           </div>
           <div className="border-t border-gray-200 px-4 py-6 sm:px-6">
