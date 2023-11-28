@@ -4,7 +4,7 @@ import { RadioGroup } from "@headlessui/react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchProductByIdAsync, selectProductById } from "../productSlice";
 import { useParams } from "react-router-dom";
-import { addToCartAsync } from "../../cart/CartSlice";
+import { addToCartAsync, selectItems } from "../../cart/CartSlice";
 import { selectLoggedInUser } from "../../auth/authSlice";
 import { discountedPrice } from "../../../app/constants";
 //TODO: In server data we will add color, sizes, highllights, to each product etc.
@@ -39,16 +39,22 @@ export default function ProductDetail() {
   const [selectedColor, setSelectedColor] = useState(colors[0]);
   const [selectedSize, setSelectedSize] = useState(sizes[2]);
   const user = useSelector(selectLoggedInUser);
+  const items = useSelector(selectItems)
   const product = useSelector(selectProductById);
   const dispatch = useDispatch();
   const params = useParams();
 
   const handleCart = (e) => {
     e.preventDefault()
-    console.log({ ...product, quantity: 1, user: user.id })
-    const newItem = { ...product, quantity: 1, user: user.id }
-    delete newItem['id']
-    dispatch(addToCartAsync(newItem));
+    if(items.findIndex(item=>item.productId===product.id)<0){
+      console.log({ ...product, quantity: 1, user: user.id })
+      const newItem = { ...product, productId:product.id, quantity: 1, user: user.id }
+      delete newItem['id']
+      dispatch(addToCartAsync(newItem));
+    }else{
+      alert('already added in cart')
+    }
+
   };
 
   useEffect(() => {
