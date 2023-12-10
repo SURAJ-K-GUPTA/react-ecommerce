@@ -1,47 +1,38 @@
-import React, { Fragment } from "react";
-import { Disclosure, Menu, Transition } from "@headlessui/react";
+import { Fragment } from 'react';
+import { Disclosure, Menu, Transition } from '@headlessui/react';
 import {
   Bars3Icon,
   ShoppingCartIcon,
   XMarkIcon,
-} from "@heroicons/react/24/outline";
-import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
-import { selectItems } from "../cart/CartSlice";
-import { selectLoggedInUser } from "../auth/authSlice";
+} from '@heroicons/react/24/outline';
+import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { selectItems } from '../cart/cartSlice';
+import { selectLoggedInUser } from '../auth/authSlice';
 
 
 const navigation = [
-  { name: "Dashboard", link: "/dashboard", user: true },
-  { name: "Team", link: "#", user: true },
-  { name: "Admin", link: "/admin", admin: true },
-  { name: "Orders", link: "/admin/orders", admin: true },
+  { name: 'Products', link: '/', user: true },
+  { name: 'Products', link: '/admin', admin: true },
+  { name: 'Orders', link: '/admin/orders', admin: true },
+
 ];
 const userNavigation = [
-  { name: "Your Profile", link: "/profile" },
-  { name: "My Orders", link: "/orders" },
-  { name: "Sign out", link: "/logout" },
+  { name: 'My Profile', link: '/profile' },
+  { name: 'My Orders', link: '/orders' },
+  { name: 'Sign out', link: '/logout' },
 ];
 
 function classNames(...classes) {
-  return classes.filter(Boolean).join(" ");
+  return classes.filter(Boolean).join(' ');
 }
 
-const Navbar = ({ children }) => {
+function NavBar({ children }) {
   const items = useSelector(selectItems);
-  console.log(useSelector((state) => state.cart));
-  console.log(items);
-  const user = useSelector(selectLoggedInUser)
+  const user = useSelector(selectLoggedInUser);
+
   return (
     <>
-      {/*
-      This example requires updating your template:
-
-      ```
-      <html class="h-full bg-gray-100">
-      <body class="h-full">
-      ```
-    */}
       <div className="min-h-full">
         <Disclosure as="nav" className="bg-gray-800">
           {({ open }) => (
@@ -53,7 +44,7 @@ const Navbar = ({ children }) => {
                       <Link to="/">
                         <img
                           className="h-8 w-8"
-                          src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500"
+                          src="/ecommerce.png"
                           alt="Your Company"
                         />
                       </Link>
@@ -67,11 +58,11 @@ const Navbar = ({ children }) => {
                               to={item.link}
                               className={classNames(
                                 item.current
-                                  ? "bg-gray-900 text-white"
-                                  : "text-gray-300 hover:bg-gray-700 hover:text-white",
-                                "rounded-md px-3 py-2 text-sm font-medium"
+                                  ? 'bg-gray-900 text-white'
+                                  : 'text-gray-300 hover:bg-gray-700 hover:text-white',
+                                'rounded-md px-3 py-2 text-sm font-medium'
                               )}
-                              aria-current={item.current ? "page" : undefined}
+                              aria-current={item.current ? 'page' : undefined}
                             >
                               {item.name}
                             </Link>
@@ -85,9 +76,8 @@ const Navbar = ({ children }) => {
                       <Link to="/cart">
                         <button
                           type="button"
-                          className="relative rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
+                          className="rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
                         >
-                          <span className="absolute -inset-1.5" />
                           <span className="sr-only">View notifications</span>
                           <ShoppingCartIcon
                             className="h-6 w-6"
@@ -96,7 +86,7 @@ const Navbar = ({ children }) => {
                         </button>
                       </Link>
                       {items.length > 0 && (
-                        <span className="inline-flex z-10 items-center rounded-md mb-6 -ml-3 bg-red-50 px-2 py-1 text-xs font-medium text-red-700 ring-1 ring-inset ring-red-600/10">
+                        <span className="inline-flex items-center rounded-md mb-7 -ml-3 bg-red-50 px-2 py-1 text-xs font-medium text-red-700 ring-1 ring-inset ring-red-600/10">
                           {items.length}
                         </span>
                       )}
@@ -104,8 +94,7 @@ const Navbar = ({ children }) => {
                       {/* Profile dropdown */}
                       <Menu as="div" className="relative ml-3">
                         <div>
-                          <Menu.Button className="relative flex max-w-xs items-center rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
-                            <span className="absolute -inset-1.5" />
+                          <Menu.Button className="flex max-w-xs items-center rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
                             <span className="sr-only">Open user menu</span>
                             <img
                               className="h-8 w-8 rounded-full"
@@ -130,8 +119,8 @@ const Navbar = ({ children }) => {
                                   <Link
                                     to={item.link}
                                     className={classNames(
-                                      active ? "bg-gray-100" : "",
-                                      "block px-4 py-2 text-sm text-gray-700"
+                                      active ? 'bg-gray-100' : '',
+                                      'block px-4 py-2 text-sm text-gray-700'
                                     )}
                                   >
                                     {item.name}
@@ -146,8 +135,7 @@ const Navbar = ({ children }) => {
                   </div>
                   <div className="-mr-2 flex md:hidden">
                     {/* Mobile menu button */}
-                    <Disclosure.Button className="relative inline-flex items-center justify-center rounded-md bg-gray-800 p-2 text-gray-400 hover:bg-gray-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
-                      <span className="absolute -inset-0.5" />
+                    <Disclosure.Button className="inline-flex items-center justify-center rounded-md bg-gray-800 p-2 text-gray-400 hover:bg-gray-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
                       <span className="sr-only">Open main menu</span>
                       {open ? (
                         <XMarkIcon
@@ -174,11 +162,11 @@ const Navbar = ({ children }) => {
                       href={item.href}
                       className={classNames(
                         item.current
-                          ? "bg-gray-900 text-white"
-                          : "text-gray-300 hover:bg-gray-700 hover:text-white",
-                        "block rounded-md px-3 py-2 text-base font-medium"
+                          ? 'bg-gray-900 text-white'
+                          : 'text-gray-300 hover:bg-gray-700 hover:text-white',
+                        'block rounded-md px-3 py-2 text-base font-medium'
                       )}
-                      aria-current={item.current ? "page" : undefined}
+                      aria-current={item.current ? 'page' : undefined}
                     >
                       {item.name}
                     </Disclosure.Button>
@@ -201,14 +189,11 @@ const Navbar = ({ children }) => {
                         {user.email}
                       </div>
                     </div>
-
                     <Link to="/cart">
                       <button
                         type="button"
-                        className="relative ml-auto flex-shrink-0 rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
+                        className="ml-auto flex-shrink-0 rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
                       >
-                        <span className="absolute -inset-1.5" />
-                        <span className="sr-only">View notifications</span>
                         <ShoppingCartIcon
                           className="h-6 w-6"
                           aria-hidden="true"
@@ -216,7 +201,7 @@ const Navbar = ({ children }) => {
                       </button>
                     </Link>
                     {items.length > 0 && (
-                      <span className="inline-flex z-10 items-center rounded-md bg-red-50 px-2 py-1 text-xs font-medium text-red-700 ring-1 ring-inset ring-red-600/10">
+                      <span className="inline-flex items-center rounded-md bg-red-50 mb-7 -ml-3 px-2 py-1 text-xs font-medium text-red-700 ring-1 ring-inset ring-red-600/10">
                         {items.length}
                       </span>
                     )}
@@ -242,19 +227,18 @@ const Navbar = ({ children }) => {
         <header className="bg-white shadow">
           <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
             <h1 className="text-3xl font-bold tracking-tight text-gray-900">
-              E-commerce
+              E-Commerce
             </h1>
           </div>
         </header>
         <main>
           <div className="mx-auto max-w-7xl py-6 sm:px-6 lg:px-8">
-            {/* Your content */}
             {children}
           </div>
         </main>
       </div>
     </>
   );
-};
+}
 
-export default Navbar;
+export default NavBar;

@@ -1,39 +1,43 @@
-import { useEffect, useState } from "react";
-import { StarIcon } from "@heroicons/react/20/solid";
-import { RadioGroup } from "@headlessui/react";
-import { useDispatch, useSelector } from "react-redux";
-import { fetchProductByIdAsync, selectProductById } from "../../productList/productSlice";
-import { useParams } from "react-router-dom";
-import { addToCartAsync } from "../../cart/CartSlice";
-import { selectLoggedInUser } from "../../auth/authSlice";
-import { discountedPrice } from "../../../app/constants";
-//TODO: In server data we will add color, sizes, highllights, to each product etc.
+import { useState, useEffect } from 'react';
+import { StarIcon } from '@heroicons/react/20/solid';
+import { RadioGroup } from '@headlessui/react';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchProductByIdAsync, selectProductById } from '../../product/productSlice';
+import { useParams } from 'react-router-dom';
+import { addToCartAsync } from '../../cart/cartSlice';
+import { selectLoggedInUser } from '../../auth/authSlice';
+import { discountedPrice } from '../../../app/constants';
+
+// TODO: In server data we will add colors, sizes , highlights. to each product
 
 const colors = [
-  { name: "White", class: "bg-white", selectedClass: "ring-gray-400" },
-  { name: "Gray", class: "bg-gray-200", selectedClass: "ring-gray-400" },
-  { name: "Black", class: "bg-gray-900", selectedClass: "ring-gray-900" },
+  { name: 'White', class: 'bg-white', selectedClass: 'ring-gray-400' },
+  { name: 'Gray', class: 'bg-gray-200', selectedClass: 'ring-gray-400' },
+  { name: 'Black', class: 'bg-gray-900', selectedClass: 'ring-gray-900' },
 ];
 const sizes = [
-  { name: "XXS", inStock: false },
-  { name: "XS", inStock: true },
-  { name: "S", inStock: true },
-  { name: "M", inStock: true },
-  { name: "L", inStock: true },
-  { name: "XL", inStock: true },
-  { name: "2XL", inStock: true },
-  { name: "3XL", inStock: true },
+  { name: 'XXS', inStock: false },
+  { name: 'XS', inStock: true },
+  { name: 'S', inStock: true },
+  { name: 'M', inStock: true },
+  { name: 'L', inStock: true },
+  { name: 'XL', inStock: true },
+  { name: '2XL', inStock: true },
+  { name: '3XL', inStock: true },
 ];
+
 const highlights = [
-  "Hand cut and sewn locally",
-  "Dyed with our proprietary colors",
-  "Pre-washed & pre-shrunk",
-  "Ultra-soft 100% cotton",
+  'Hand cut and sewn locally',
+  'Dyed with our proprietary colors',
+  'Pre-washed & pre-shrunk',
+  'Ultra-soft 100% cotton',
 ];
 
 function classNames(...classes) {
-  return classes.filter(Boolean).join(" ");
+  return classes.filter(Boolean).join(' ');
 }
+
+// TODO : Loading UI
 
 export default function AdminProductDetail() {
   const [selectedColor, setSelectedColor] = useState(colors[0]);
@@ -44,23 +48,22 @@ export default function AdminProductDetail() {
   const params = useParams();
 
   const handleCart = (e) => {
-    e.preventDefault()
-    console.log({ ...product, quantity: 1, user: user.id })
-    const newItem = { ...product, quantity: 1, user: user.id }
-    delete newItem['id']
+    e.preventDefault();
+    const newItem = { ...product, quantity: 1, user: user.id };
+    delete newItem['id'];
     dispatch(addToCartAsync(newItem));
   };
 
   useEffect(() => {
     dispatch(fetchProductByIdAsync(params.id));
   }, [dispatch, params.id]);
+
   return (
     <div className="bg-white">
       {product && (
         <div className="pt-6">
           <nav aria-label="Breadcrumb">
             <ol
-              role="list"
               className="mx-auto flex max-w-2xl items-center space-x-2 px-4 sm:px-6 lg:max-w-7xl lg:px-8"
             >
               {product.breadcrumbs &&
@@ -99,40 +102,38 @@ export default function AdminProductDetail() {
           </nav>
 
           {/* Image gallery */}
-          {product.images && (
-            <div className="mx-auto mt-6 max-w-2xl sm:px-6 lg:grid lg:max-w-7xl lg:grid-cols-3 lg:gap-x-8 lg:px-8">
-              <div className="aspect-h-4 aspect-w-3 hidden overflow-hidden rounded-lg lg:block">
+          <div className="mx-auto mt-6 max-w-2xl sm:px-6 lg:grid lg:max-w-7xl lg:grid-cols-3 lg:gap-x-8 lg:px-8">
+            <div className="aspect-h-4 aspect-w-3 hidden overflow-hidden rounded-lg lg:block">
+              <img
+                src={product.images[0]}
+                alt={product.title}
+                className="h-full w-full object-cover object-center"
+              />
+            </div>
+            <div className="hidden lg:grid lg:grid-cols-1 lg:gap-y-8">
+              <div className="aspect-h-2 aspect-w-3 overflow-hidden rounded-lg">
                 <img
-                  src={product.images[0]}
+                  src={product.images[1]}
                   alt={product.title}
                   className="h-full w-full object-cover object-center"
                 />
               </div>
-              <div className="hidden lg:grid lg:grid-cols-1 lg:gap-y-8">
-                <div className="aspect-h-2 aspect-w-3 overflow-hidden rounded-lg">
-                  <img
-                    src={product.images[1]}
-                    alt={product.title}
-                    className="h-full w-full object-cover object-center"
-                  />
-                </div>
-                <div className="aspect-h-2 aspect-w-3 overflow-hidden rounded-lg">
-                  <img
-                    src={product.images[2]}
-                    alt={product.title}
-                    className="h-full w-full object-cover object-center"
-                  />
-                </div>
-              </div>
-              <div className="aspect-h-5 aspect-w-4 lg:aspect-h-4 lg:aspect-w-3 sm:overflow-hidden sm:rounded-lg">
+              <div className="aspect-h-2 aspect-w-3 overflow-hidden rounded-lg">
                 <img
-                  src={product.images[3]}
+                  src={product.images[2]}
                   alt={product.title}
                   className="h-full w-full object-cover object-center"
                 />
               </div>
             </div>
-          )}
+            <div className="aspect-h-5 aspect-w-4 lg:aspect-h-4 lg:aspect-w-3 sm:overflow-hidden sm:rounded-lg">
+              <img
+                src={product.images[3]}
+                alt={product.title}
+                className="h-full w-full object-cover object-center"
+              />
+            </div>
+          </div>
 
           {/* Product info */}
           <div className="mx-auto max-w-2xl px-4 pb-16 pt-10 sm:px-6 lg:grid lg:max-w-7xl lg:grid-cols-3 lg:grid-rows-[auto,auto,1fr] lg:gap-x-8 lg:px-8 lg:pb-24 lg:pt-16">
@@ -148,7 +149,7 @@ export default function AdminProductDetail() {
               <p className="text-xl line-through tracking-tight text-gray-900">
                 ${product.price}
               </p>
-              <p className="text-3xl line-through tracking-tight text-gray-900">
+              <p className="text-3xl tracking-tight text-gray-900">
                 ${discountedPrice(product)}
               </p>
 
@@ -162,9 +163,9 @@ export default function AdminProductDetail() {
                         key={rating}
                         className={classNames(
                           product.rating > rating
-                            ? "text-gray-900"
-                            : "text-gray-200",
-                          "h-5 w-5 flex-shrink-0"
+                            ? 'text-gray-900'
+                            : 'text-gray-200',
+                          'h-5 w-5 flex-shrink-0'
                         )}
                         aria-hidden="true"
                       />
@@ -195,9 +196,9 @@ export default function AdminProductDetail() {
                           className={({ active, checked }) =>
                             classNames(
                               color.selectedClass,
-                              active && checked ? "ring ring-offset-1" : "",
-                              !active && checked ? "ring-2" : "",
-                              "relative -m-0.5 flex cursor-pointer items-center justify-center rounded-full p-0.5 focus:outline-none"
+                              active && checked ? 'ring ring-offset-1' : '',
+                              !active && checked ? 'ring-2' : '',
+                              'relative -m-0.5 flex cursor-pointer items-center justify-center rounded-full p-0.5 focus:outline-none'
                             )
                           }
                         >
@@ -208,7 +209,7 @@ export default function AdminProductDetail() {
                             aria-hidden="true"
                             className={classNames(
                               color.class,
-                              "h-8 w-8 rounded-full border border-black border-opacity-10"
+                              'h-8 w-8 rounded-full border border-black border-opacity-10'
                             )}
                           />
                         </RadioGroup.Option>
@@ -246,10 +247,10 @@ export default function AdminProductDetail() {
                           className={({ active }) =>
                             classNames(
                               size.inStock
-                                ? "cursor-pointer bg-white text-gray-900 shadow-sm"
-                                : "cursor-not-allowed bg-gray-50 text-gray-200",
-                              active ? "ring-2 ring-indigo-500" : "",
-                              "group relative flex items-center justify-center rounded-md border py-3 px-4 text-sm font-medium uppercase hover:bg-gray-50 focus:outline-none sm:flex-1 sm:py-6"
+                                ? 'cursor-pointer bg-white text-gray-900 shadow-sm'
+                                : 'cursor-not-allowed bg-gray-50 text-gray-200',
+                              active ? 'ring-2 ring-indigo-500' : '',
+                              'group relative flex items-center justify-center rounded-md border py-3 px-4 text-sm font-medium uppercase hover:bg-gray-50 focus:outline-none sm:flex-1 sm:py-6'
                             )
                           }
                         >
@@ -261,11 +262,11 @@ export default function AdminProductDetail() {
                               {size.inStock ? (
                                 <span
                                   className={classNames(
-                                    active ? "border" : "border-2",
+                                    active ? 'border' : 'border-2',
                                     checked
-                                      ? "border-indigo-500"
-                                      : "border-transparent",
-                                    "pointer-events-none absolute -inset-px rounded-md"
+                                      ? 'border-indigo-500'
+                                      : 'border-transparent',
+                                    'pointer-events-none absolute -inset-px rounded-md'
                                   )}
                                   aria-hidden="true"
                                 />

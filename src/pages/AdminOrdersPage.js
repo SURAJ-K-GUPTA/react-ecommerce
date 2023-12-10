@@ -1,12 +1,14 @@
-import React from 'react'
-import Navbar from '../features/navbar/Navbar'
-import AdminOrders from '../features/admin/components/AdminOrders'
-const AdminOrdersPage = () => (
-    <div>
-        <Navbar>
-            <AdminOrders />
-        </Navbar>
-    </div>
-)
+import AdminOrders from "../features/admin/components/AdminOrders";
+import NavBar from "../features/navbar/Navbar";
 
-export default AdminOrdersPage
+function AdminOrdersPage() {
+    return ( 
+        <div>
+            <NavBar>
+                <AdminOrders></AdminOrders>
+            </NavBar>
+        </div>
+     );
+}
+
+export default AdminOrdersPage;

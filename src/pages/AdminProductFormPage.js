@@ -1,12 +1,13 @@
-import React from 'react'
-import Navbar from '../features/navbar/Navbar'
-import ProductForm from '../features/admin/components/ProductForm'
-const AdminProductFormPage = () => (
-    <div>
-        <Navbar>
-            <ProductForm />
-        </Navbar>
-    </div>
-)
+import ProductForm from "../features/admin/components/ProductForm";
+import NavBar from "../features/navbar/Navbar";
+function AdminProductFormPage() {
+    return ( 
+        <div>
+            <NavBar>
+                <ProductForm></ProductForm>
+            </NavBar>
+        </div>
+     );
+}
 
-export default AdminProductFormPage
+export default AdminProductFormPage;
