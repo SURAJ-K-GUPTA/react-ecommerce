@@ -9,17 +9,17 @@ import { discountedPrice } from '../../../app/constants';
 
 export default function UserOrders() {
   const dispatch = useDispatch();
-  const user = useSelector(selectUserInfo);
+  const userInfo = useSelector(selectUserInfo);
   const orders = useSelector(selectUserOrders);
 
   useEffect(() => {
-    dispatch(fetchLoggedInUserOrderAsync(user.id));
-  }, [dispatch, user]);
+    dispatch(fetchLoggedInUserOrderAsync(userInfo.id));
+  }, [dispatch, userInfo]);
 
   return (
     <div>
-      {orders && orders.map((order) => (
-        <div>
+      {orders && orders.map((order,index) => (
+        <div key={index}>
           <div>
             <div className="mx-auto mt-12 bg-white max-w-7xl px-4 sm:px-6 lg:px-8">
               <div className="border-t border-gray-200 px-4 py-6 sm:px-6">
