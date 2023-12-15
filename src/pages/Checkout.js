@@ -25,7 +25,7 @@ function Checkout() {
     formState: { errors },
   } = useForm();
 
-  const user = useSelector(selectUserInfo);
+  const userInfo = useSelector(selectUserInfo);
   const items = useSelector(selectItems);
   const currentOrder = useSelector(selectCurrentOrder);
 
@@ -48,7 +48,7 @@ function Checkout() {
 
   const handleAddress = (e) => {
     console.log(e.target.value);
-    setSelectedAddress(user.addresses[e.target.value]);
+    setSelectedAddress(userInfo.addresses[e.target.value]);
   };
 
   const handlePayment = (e) => {
@@ -62,7 +62,6 @@ function Checkout() {
         items,
         totalAmount,
         totalItems,
-        user:user.id,
         paymentMethod,
         selectedAddress,
         status: 'pending', // other status can be delivered, received.
@@ -98,8 +97,8 @@ function Checkout() {
                 console.log(data);
                 dispatch(
                   updateUserAsync({
-                    ...user,
-                    addresses: [...user.addresses, data],
+                    ...userInfo,
+                    addresses: [...userInfo.addresses, data],
                   })
                 );
                 reset();
@@ -302,7 +301,7 @@ function Checkout() {
                 Choose from Existing addresses
               </p>
               <ul>
-                {user.addresses.map((address, index) => (
+                {userInfo.addresses.map((address, index) => (
                   <li
                     key={index}
                     className="flex justify-between gap-x-6 px-5 py-5 border-solid border-2 border-gray-200"
